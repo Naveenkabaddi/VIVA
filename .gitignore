@@ -15,6 +15,7 @@ venv/
 backend/.env
 frontend/.env
 frontend/.env.*
+!frontend/.env.example
 
 # Local database
 *.db
