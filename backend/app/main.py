@@ -61,15 +61,11 @@ install_error_handlers(app)
 app.include_router(api_router, prefix=settings.api_prefix)
 
 
-@app.get("/", include_in_schema=False)
-def root() -> dict[str, str]:
-    return {
-        "service": settings.app_name,
-        "status": "running",
-        "docs": "/api/docs",
-        "health": "/api/health",
-    }
+from pathlib import Path
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 
+FRONTEND_DIST = Path(__file__).resolve().parents[2] / "frontend" / "dist"
 
 @app.get("/api/health", tags=["system"])
 def health() -> dict:
@@ -83,3 +79,24 @@ def health() -> dict:
         "scoring_weights": settings.score_weights,
         "weights_valid": settings.weights_valid,
     }
+
+
+if (FRONTEND_DIST / "index.html").exists():
+    if (FRONTEND_DIST / "assets").exists():
+        app.mount("/assets", StaticFiles(directory=str(FRONTEND_DIST / "assets")), name="assets")
+
+    @app.get("/{full_path:path}", include_in_schema=False)
+    async def serve_spa(full_path: str):
+        candidate = FRONTEND_DIST / full_path
+        if full_path and candidate.is_file():
+            return FileResponse(candidate)
+        return FileResponse(FRONTEND_DIST / "index.html")
+else:
+    @app.get("/", include_in_schema=False)
+    def root() -> dict[str, str]:
+        return {
+            "service": settings.app_name,
+            "status": "running",
+            "docs": "/api/docs",
+            "health": "/api/health",
+        }
