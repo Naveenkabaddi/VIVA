@@ -1,0 +1,54 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+backend/.env
+frontend/.env
+frontend/.env.*
+
+# Local database
+*.db
+*.sqlite
+*.sqlite3
+backend/viva.db
+backend/*.db
+
+# Generated storage (keep the folders, not the contents)
+backend/storage/uploads/*
+!backend/storage/uploads/.gitkeep
+backend/storage/vectors/*
+!backend/storage/vectors/.gitkeep
+
+# Logs
+*.log
+logs/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/*.tsbuildinfo
+
+# Coverage / test output
+.coverage
+coverage.xml
+htmlcov/
+playwright-report/
+test-results/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini

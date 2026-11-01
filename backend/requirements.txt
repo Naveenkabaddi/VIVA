@@ -1,0 +1,31 @@
+# Core runtime (verified with Python 3.10+)
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+pydantic==2.10.4
+pydantic-settings==2.7.0
+SQLAlchemy==2.0.36
+alembic==1.14.0
+PyJWT==2.10.1
+bcrypt==4.2.1
+python-multipart==0.0.20
+email-validator==2.2.0
+httpx==0.28.1
+numpy==2.1.3
+
+# Document intelligence
+PyMuPDF==1.25.0
+python-docx==1.1.2
+
+# PostgreSQL driver (only used when DATABASE_URL points at PostgreSQL).
+psycopg[binary]==3.2.3
+
+# Optional local models (install for higher-quality offline embeddings / STT).
+# The app automatically falls back to a deterministic hashing embedder and
+# Gemini/Whisper providers when these are absent.
+# sentence-transformers==3.3.1
+# faiss-cpu==1.9.0.post1
+# faster-whisper==1.1.0
+# gTTS==2.5.4
+
+# Testing
+pytest==8.3.4
